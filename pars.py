@@ -10,18 +10,22 @@ class Scraper:
 		html = r.read()
 		parser = "html.parser"
 		sp = BeautifulSoup(html, parser)
-		for tag in sp.find_all("a"):
-			url = tag.get("href")
+		# lis=sp.select('div[class="cv-countdown__item-value _accent"]')
+		# for p in lis:
+		# 	print(p)
+		for tag in sp.find_all("div",{"class":"cv-countdown__item-value _accent"}):
+			url = tag
 			if url is None:
 				print("No")
 				continue
-			if "html" in url:
-				print("\n" + url)
-				f.write(url + "\n")
+			else:
+				print("\n" + str(url.text))
+				#f.write(url.text + "\n")
+				
 
 f = open("kek.txt","w")
 
-news = "https://yandex.ru/"
+news = "https://xn--80aesfpebagmfblc0a.xn--p1ai/"
 now = Scraper(news)
 now.scrape()
 
